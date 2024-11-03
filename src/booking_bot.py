@@ -20,11 +20,12 @@ chrome_options.add_argument("--no-sandbox")  # Overcome limited resource problem
 chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 
 # Initialize the Chrome driver with the options
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+chrome_version = "114.0.5735.90-1"  # This should match the version of Chromium you have
+service = Service(ChromeDriverManager(chrome_version).install())
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
 ########## Pre 1. Finish if it's not Wednesday
 current_date = datetime.now()
-
 # Check if the current day is Wednesday
 if current_date.weekday() == 3:  # Monday is 0, Sunday is 6
     print("Today is Thursday!")
