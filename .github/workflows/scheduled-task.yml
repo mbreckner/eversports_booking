@@ -30,4 +30,4 @@ jobs:
 
       - name: Run the Python script
         run: |
-          python eversports_booking/src/booking_bot.py
+          python src/booking_bot.py
