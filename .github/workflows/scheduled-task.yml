@@ -30,4 +30,4 @@ jobs:
 
       - name: Run the Python script
         run: |
-          python ../../booking_bot.py  # Update with the path to your Python script
+          python eversports_booking/src/booking_bot.py
