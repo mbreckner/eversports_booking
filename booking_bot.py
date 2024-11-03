@@ -26,10 +26,10 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 current_date = datetime.now()
 
 # Check if the current day is Wednesday
-if current_date.weekday() == 2:  # Monday is 0, Sunday is 6
-    print("Today is Wednesday!")
+if current_date.weekday() == 3:  # Monday is 0, Sunday is 6
+    print("Today is Thursday!")
 else:
-    print("Today is not Wednesday.")
+    print("Today is not Thursday")
     '''sys.exit()'''
 
 
@@ -80,6 +80,7 @@ today = datetime.now()
 days_until_next_wednesday = (2 - today.weekday() + 7) % 7 + 7  # Move to next Wednesday, then add another week
 next_wednesday_in_two_weeks = today + timedelta(days=days_until_next_wednesday)
 formatted_date_next_wednesday_in_two_weeks = next_wednesday_in_two_weeks.strftime("%d/%m/%Y")  # Format the date as needed
+print("Tries to book a padel court for " + formatted_date_next_wednesday_in_two_weeks)
 
 # set date to datepicker and clicks ENTER
 datePickerInput = WebDriverWait(driver, 10).until(

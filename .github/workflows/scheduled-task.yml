@@ -1,8 +1,8 @@
-name: Scheduled Task
+name: Book a Padel court every Wednesday
 
 on:
   schedule:
-    # Runs at 12:00 PM UTC every day
+    # Runs at 23:50 PM UTC every Wednesday
     - cron: '* * * * *'
     #- cron: '0 23 * * 3'
 
