@@ -1,9 +1,9 @@
 name: Book a Padel court every Wednesday
 
 on:
-  schedule:
+  #schedule:
     # Runs at 23:50 PM UTC every Wednesday
-    - cron: '* * * * *'
+    #- cron: '* * * * *'
     #- cron: '0 23 * * 3'
   push:
     branches:
