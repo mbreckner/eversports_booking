@@ -53,7 +53,6 @@ timeslot_chosen_2000 = False
 driver.get("https://www.eversports.ch/widget/w/9ckd8j")
 
 
-
 ########## 2. Login
 ### Go to login mask and select 'Continue with google'
 openLoginPageButton = WebDriverWait(driver, 10).until(
