@@ -17,8 +17,8 @@ import chromedriver_autoinstaller
 chromedriver_autoinstaller.install()
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run headless
-chrome_options.add_argument("--no-sandbox")  # Overcome limited resource problems
-chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+#chrome_options.add_argument("--no-sandbox")  # Overcome limited resource problems
+#chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 
 # Initialize the Chrome driver with the options
 #chrome_version = "114.0.5735.90-1"  # This should match the version of Chromium you have
@@ -56,7 +56,7 @@ print("Opened webpage")
 
 ########## 2. Login
 ### Go to login mask and select 'Continue with google'
-openLoginPageButton = WebDriverWait(driver, 10).until(
+openLoginPageButton = WebDriverWait(driver, 30).until(
     EC.element_to_be_clickable((By.XPATH, "//*[text()='Login / Register']"))
 )
 openLoginPageButton.click()
