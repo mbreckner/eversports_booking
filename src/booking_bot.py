@@ -16,7 +16,7 @@ import chromedriver_autoinstaller
 # Set Chrome options
 chromedriver_autoinstaller.install()
 chrome_options = Options()
-chrome_options.add_argument("--headless")  # Run headless
+#chrome_options.add_argument("--headless")  # Run headless
 #chrome_options.add_argument("--no-sandbox")  # Overcome limited resource problems
 #chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 
