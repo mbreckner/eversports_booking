@@ -50,8 +50,9 @@ timeslot_chosen_2000 = False
 
 ########## 1. Set up Selenium and access the website
 #driver = webdriver.Chrome()  # Make sure to specify the path if necessary
+print("Try to open webpage")
 driver.get("https://www.eversports.ch/widget/w/9ckd8j")
-
+print("Opened webpage")
 
 ########## 2. Login
 ### Go to login mask and select 'Continue with google'
