@@ -56,10 +56,15 @@ print("Opened webpage")
 
 ########## 2. Login
 ### Go to login mask and select 'Continue with google'
-openLoginPageButton = WebDriverWait(driver, 30).until(
-    EC.element_to_be_clickable((By.XPATH, "//*[text()='Login / Register']"))
-)
-openLoginPageButton.click()
+try:
+    openLoginPageButton = WebDriverWait(driver, 20).until(
+        EC.element_to_be_clickable((By.XPATH, "//*[text()='Login / Register']"))
+    )
+    openLoginPageButton.click()
+except TimeoutException:
+    print("Timeout waiting for the login page button")
+    print(driver.page_source)  # Output the page source for debugging
+    driver.quit()  # Make sure to close the driver
 
 acceptCookieButton = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.XPATH, "//*[text()='Accept all']"))
