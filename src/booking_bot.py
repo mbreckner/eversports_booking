@@ -49,27 +49,21 @@ timeslot_chosen_1800 = False
 timeslot_chosen_2000 = False
 
 ########## 1. Set up Selenium and access the website
-#driver = webdriver.Chrome()  # Make sure to specify the path if necessary
-print("Try to open webpage")
-driver.get("https://www.eversports.ch/widget/w/9ckd8j")
+driver.get("https://www.eversports.ch/s/oro-sportcenter")
 print("Opened webpage")
 
 ########## 2. Login
 ### Go to login mask and select 'Continue with google'
-try:
-    openLoginPageButton = WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable((By.XPATH, "//*[text()='Login / Register']"))
-    )
-    openLoginPageButton.click()
-except TimeoutException:
-    print("Timeout waiting for the login page button")
-    print(driver.page_source)  # Output the page source for debugging
-    driver.quit()  # Make sure to close the driver
-
-acceptCookieButton = WebDriverWait(driver, 10).until(
+acceptCookieButton = WebDriverWait(driver, 20).until(
     EC.element_to_be_clickable((By.XPATH, "//*[text()='Accept all']"))
 )
 acceptCookieButton.click()
+print("Cookie accepted")
+
+openLoginPageButtons = WebDriverWait(driver, 20).until(
+    EC.element_to_be_clickable((By.XPATH, "//*[text()='Login']"))
+)
+openLoginPageButtons.click()
 
 # Find and fill in login fields
 driver.find_element(By.XPATH, "//input[@type='email']").send_keys(login_email)
@@ -78,6 +72,7 @@ confirmLoginFormButton = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.XPATH, "//button[@data-testid='login']"))
 )
 confirmLoginFormButton.click()
+print("Login successful")
 
 
 ########## 3. Set the booking date to next Wednesday
