@@ -22,8 +22,8 @@ chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resou
 
 # Initialize the Chrome driver with the options
 #chrome_version = "114.0.5735.90-1"  # This should match the version of Chromium you have
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=chrome_options)
+#service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(options=chrome_options)
 
 ########## Pre 1. Finish if it's not Wednesday
 current_date = datetime.now()
