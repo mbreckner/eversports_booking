@@ -19,12 +19,6 @@ def calculate_wednesday_booking_date():
         "%d/%m/%Y")  # Format the date as needed
     print("::::: Tries to book a padel court for " + formatted_date_next_wednesday_in_two_weeks)
     return formatted_date_next_wednesday_in_two_weeks
-def exit_if_not_thursday():
-    current_date = datetime.now()
-    if current_date.weekday() == 3:  # Monday is 0, Sunday is 6
-        print("::::: Today is Thursday!")
-    else:
-        print("::::: Today is not Thursday")
 def set_datepicker_input():
     formatted_date_next_wednesday_in_two_weeks = calculate_wednesday_booking_date()
 
@@ -38,9 +32,9 @@ def click_available_timeslot():
     global timeslot_chosen_1900
     global timeslot_chosen_1800
     global timeslot_chosen_2000
-    sleep(2)
+    sleep(3)
     try:
-        button_timeslot_1900 = WebDriverWait(driver, 10).until(
+        button_timeslot_1900 = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, xpath_for_time_slot_1900_to_book))
         )
         print("::::: 19:00 time slot available")
@@ -49,7 +43,7 @@ def click_available_timeslot():
     except TimeoutException:
         print("::::: 19:00 time slot button not found, searching for an alternative timeslot")
         try:
-            button_timeslot_1800 = WebDriverWait(driver, 10).until(
+            button_timeslot_1800 = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, xpath_for_time_slot_1800_to_book))
             )
             print("::::: 18:00 time slot available")
@@ -74,6 +68,7 @@ def adjust_timeframe_to_two_hours():
         EC.element_to_be_clickable((By.XPATH, "//div[@role='combobox']"))
     )
     open_dropdown_for_timeslot.click()
+    print("::::: Opened dropdown for timeslot")
     timeslot_to_click = ""
     if timeslot_chosen_1900:
         timeslot_to_click = xpath_dropdown_timeslot_end_21_00
@@ -81,8 +76,11 @@ def adjust_timeframe_to_two_hours():
         timeslot_to_click = xpath_dropdown_timeslot_end_20_00
     else:
         timeslot_to_click = xpath_dropdown_timeslot_end_22_00
-
+    print("::::: Timeslot to click = " + timeslot_to_click)
     try:
+        WebDriverWait(driver, 30).until(
+            EC.visibility_of_element_located((By.XPATH, timeslot_to_click))
+        )
         dropdown_menu_2h = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, timeslot_to_click))
         )
@@ -114,8 +112,8 @@ is_headless = True
 eversports_weburl = "https://www.eversports.ch/widget/w/9ckd8j"
 login_email = "mbreckner@yahoo.de"
 login_password = "HdudYj2WvHhyu8ZHmb"
-xpath_for_time_slot_1900_to_book = "//td[@data-original-title='Free | 12:00 - 13:00']"
-xpath_dropdown_timeslot_end_21_00 = "//*[text()='14:00']"
+xpath_for_time_slot_1900_to_book = "//td[@data-original-title='Free | 10:00 - 11:00']"
+xpath_dropdown_timeslot_end_21_00 = "//*[text()='12:00']"
 xpath_for_time_slot_1800_to_book = "//td[@data-original-title='Free | 18:00 - 19:00']"
 xpath_dropdown_timeslot_end_20_00 = "//*[text()='20:00']"
 xpath_for_time_slot_2000_to_book = "//td[@data-original-title='Free | 20:00 - 21:00']"
@@ -126,7 +124,6 @@ timeslot_chosen_2000 = False
 
 
 driver = setup_chrome_driver(is_headless)
-exit_if_not_thursday()
 driver.get(eversports_weburl)
 print("::::: Opened webpage")
 execute_login_flow(driver, login_email, login_password)
