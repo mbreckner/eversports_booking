@@ -7,13 +7,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from datetime import datetime, timedelta
-import time
 
 from login_flow import execute_login_flow
 from setup_driver import setup_chrome_driver
 
 def calculate_wednesday_booking_date():
-    sleep(2)
     today = datetime.now()
     days_until_next_wednesday = (2 - today.weekday() + 7) % 7 + 7  # Move to next Wednesday, then add another week
     next_wednesday_in_two_weeks = today + timedelta(days=days_until_next_wednesday)
@@ -91,7 +89,7 @@ def adjust_timeframe_to_two_hours():
         dropdown_menu_2h.click()
         return timeslot_to_click
     except TimeoutException:
-        print('::::: Booking for 2h not possible, exit')
+        print('::::: ERROR: Booking for 2h not possible, exit')
         sys.exit()
 def confirm_booking_and_payment():
     # Select payment method and click 'Pay'
@@ -99,7 +97,10 @@ def confirm_booking_and_payment():
         EC.element_to_be_clickable((By.XPATH, "//*[text()='Select payment method']"))
     )
     confirm_payment_button.click()
-    time.sleep(10)
+    pay_now_button = WebDriverWait(driver, 20).until(
+        EC.element_to_be_clickable((By.XPATH, "//*[text()='Pay now']"))
+    )
+    pay_now_button.click()
 
     if timeslot_chosen_1900:
         print('Booked successfully for 19:00-21:00')
@@ -112,8 +113,8 @@ def confirm_booking_and_payment():
 eversports_weburl = "https://www.eversports.ch/widget/w/9ckd8j"
 login_email = "mbreckner@yahoo.de"
 login_password = "HdudYj2WvHhyu8ZHmb"
-xpath_for_time_slot_1900_to_book = "//td[@data-original-title='Free | 19:00 - 20:00']"
-xpath_dropdown_timeslot_end_21_00 = "//*[text()='21:00']"
+xpath_for_time_slot_1900_to_book = "//td[@data-original-title='Free | 09:00 - 10:00']"
+xpath_dropdown_timeslot_end_21_00 = "//*[text()='11:00']"
 xpath_for_time_slot_1800_to_book = "//td[@data-original-title='Free | 18:00 - 19:00']"
 xpath_dropdown_timeslot_end_20_00 = "//*[text()='20:00']"
 xpath_for_time_slot_2000_to_book = "//td[@data-original-title='Free | 20:00 - 21:00']"
