@@ -97,10 +97,11 @@ def confirm_booking_and_payment():
         EC.element_to_be_clickable((By.XPATH, "//*[text()='Select payment method']"))
     )
     confirm_payment_button.click()
-    pay_now_button = WebDriverWait(driver, 20).until(
+    pay_now_button = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, "//*[text()='Pay now']"))
     )
     pay_now_button.click()
+    sleep(20)
 
     if timeslot_chosen_1900:
         print('Booked successfully for 19:00-21:00')
@@ -113,8 +114,8 @@ def confirm_booking_and_payment():
 eversports_weburl = "https://www.eversports.ch/widget/w/9ckd8j"
 login_email = "mbreckner@yahoo.de"
 login_password = "HdudYj2WvHhyu8ZHmb"
-xpath_for_time_slot_1900_to_book = "//td[@data-original-title='Free | 09:00 - 10:00']"
-xpath_dropdown_timeslot_end_21_00 = "//*[text()='11:00']"
+xpath_for_time_slot_1900_to_book = "//td[@data-original-title='Free | 12:00 - 13:00']"
+xpath_dropdown_timeslot_end_21_00 = "//*[text()='14:00']"
 xpath_for_time_slot_1800_to_book = "//td[@data-original-title='Free | 18:00 - 19:00']"
 xpath_dropdown_timeslot_end_20_00 = "//*[text()='20:00']"
 xpath_for_time_slot_2000_to_book = "//td[@data-original-title='Free | 20:00 - 21:00']"
@@ -124,7 +125,7 @@ timeslot_chosen_1800 = False
 timeslot_chosen_2000 = False
 
 
-driver = setup_chrome_driver(True)
+driver = setup_chrome_driver(False)
 exit_if_not_thursday()
 driver.get(eversports_weburl)
 print("::::: Opened webpage")
