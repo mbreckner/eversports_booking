@@ -58,7 +58,7 @@ def confirm_booking_and_payment():
     else:
         print('::::: Booked successfully for 20:00-22:00')
 
-is_headless = False
+is_headless = True
 prod_run = True
 eversports_weburl = "https://www.eversports.ch/s/oro-sportcenter"
 login_email = "mbreckner@yahoo.de"
