@@ -110,7 +110,7 @@ def confirm_booking_and_payment():
     else:
         print('Booked successfully for 20:00-22:00')
 
-
+is_headless = True
 eversports_weburl = "https://www.eversports.ch/widget/w/9ckd8j"
 login_email = "mbreckner@yahoo.de"
 login_password = "HdudYj2WvHhyu8ZHmb"
@@ -125,7 +125,7 @@ timeslot_chosen_1800 = False
 timeslot_chosen_2000 = False
 
 
-driver = setup_chrome_driver(False)
+driver = setup_chrome_driver(is_headless)
 exit_if_not_thursday()
 driver.get(eversports_weburl)
 print("::::: Opened webpage")
