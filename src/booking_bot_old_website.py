@@ -19,6 +19,8 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run headless
 chrome_options.add_argument("--no-sandbox")  # Overcome limited resource problems
 chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+chrome_options.add_argument("window-size=1920,1080")  # Set screen size to avoid issues in headless mode
+
 
 # Initialize the Chrome driver with the options
 #chrome_version = "114.0.5735.90-1"  # This should match the version of Chromium you have
@@ -30,9 +32,9 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 current_date = datetime.now()
 # Check if the current day is Wednesday
 if current_date.weekday() == 3:  # Monday is 0, Sunday is 6
-    print("Today is Thursday!")
+    print("::::: Today is Thursday!")
 else:
-    print("Today is not Thursday")
+    print("::::: Today is not Thursday")
     '''sys.exit()'''
 
 
@@ -51,20 +53,24 @@ timeslot_chosen_2000 = False
 
 ########## 1. Set up Selenium and access the website
 #driver = webdriver.Chrome()  # Make sure to specify the path if necessary
-print("Try to open webpage")
+print("::::: Try to open webpage")
 driver.get("https://www.eversports.ch/widget/w/9ckd8j")
-print("Opened webpage")
+print("::::: Opened webpage")
 
 ########## 2. Login
 ### Go to login mask and select 'Continue with google'
 try:
-    openLoginPageButton = WebDriverWait(driver, 20).until(
+    print("::::: Tries to locate Login button")
+    element = WebDriverWait(driver, 30).until(
+        EC.visibility_of_element_located((By.XPATH, "//*[text()='Login / Register']"))
+    )
+    print("::::: Located Login button")
+    openLoginPageButton = WebDriverWait(driver, 50).until(
         EC.element_to_be_clickable((By.XPATH, "//*[text()='Login / Register']"))
     )
     openLoginPageButton.click()
 except TimeoutException:
-    print("Timeout waiting for the login page button")
-    print(driver.page_source)  # Output the page source for debugging
+    print("::::: Timeout waiting for the login page button")
     driver.quit()  # Make sure to close the driver
 
 acceptCookieButton = WebDriverWait(driver, 10).until(
@@ -88,7 +94,7 @@ today = datetime.now()
 days_until_next_wednesday = (2 - today.weekday() + 7) % 7 + 7  # Move to next Wednesday, then add another week
 next_wednesday_in_two_weeks = today + timedelta(days=days_until_next_wednesday)
 formatted_date_next_wednesday_in_two_weeks = next_wednesday_in_two_weeks.strftime("%d/%m/%Y")  # Format the date as needed
-print("Tries to book a padel court for " + formatted_date_next_wednesday_in_two_weeks)
+print("::::: Tries to book a padel court for " + formatted_date_next_wednesday_in_two_weeks)
 
 # set date to datepicker and clicks ENTER
 datePickerInput = WebDriverWait(driver, 10).until(
@@ -113,24 +119,24 @@ try:
     button_timeslot_1900 = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.XPATH, xpath_for_time_slot_1900_to_book))
     )
-    print("19:00 time slot available")
+    print("::::: 19:00 time slot available")
     timeslot_chosen_1900 = True
     button_timeslot_1900.click()
 except TimeoutException:
-    print("19:00 time slot button not found, searching for an alternative timeslot")
+    print("::::: 19:00 time slot button not found, searching for an alternative timeslot")
     try:
         button_timeslot_1800 = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, xpath_for_time_slot_1800_to_book))
         )
-        print("18:00 time slot available")
+        print("::::: 18:00 time slot available")
         timeslot_chosen_1800 = True
         button_timeslot_1800.click()
     except TimeoutException:
-        print("18:00 time slot button not found, searching for an alternative timeslot.")
+        print("::::: 18:00 time slot button not found, searching for an alternative timeslot.")
         button_timeslot_2000 = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, xpath_for_time_slot_2000_to_book))
         )
-        print("20:00 time slot available")
+        print("::::: 20:00 time slot available")
         timeslot_chosen_2000 = True
         button_timeslot_2000.click()
 
