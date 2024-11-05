@@ -17,13 +17,14 @@ import chromedriver_autoinstaller
 chromedriver_autoinstaller.install()
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run headless
-#chrome_options.add_argument("--no-sandbox")  # Overcome limited resource problems
-#chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+chrome_options.add_argument("--no-sandbox")  # Overcome limited resource problems
+chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 
 # Initialize the Chrome driver with the options
 #chrome_version = "114.0.5735.90-1"  # This should match the version of Chromium you have
-#service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(options=chrome_options)
+#driver = webdriver.Chrome(options=chrome_options)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+
 
 ########## Pre 1. Finish if it's not Wednesday
 current_date = datetime.now()
