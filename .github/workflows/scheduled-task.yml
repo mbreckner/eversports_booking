@@ -2,9 +2,8 @@ name: Book a Padel court every Wednesday
 
 on:
   #schedule:
-    # Runs at 23:50 PM UTC every Wednesday
-    #- cron: '* * * * *'
-    #- cron: '0 23 * * 3'
+    # Runs at 00:01 PM UTC every Thursday
+    #- cron: '1 0 * * 4'
   push:
     branches:
       - main
@@ -45,4 +44,4 @@ jobs:
           Xvfb :99 -screen 0 1920x1080x24 &
           export DISPLAY=:99
           
-          python src/oldpage/booking_bot_old_website.py
+          python src/newpage/booking_bot.py

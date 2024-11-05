@@ -88,7 +88,7 @@ def adjust_timeframe_to_two_hours():
         return timeslot_to_click
     except TimeoutException:
         print('::::: ERROR: Booking for 2h not possible, exit')
-        sys.exit()
+        sys.exit(1)
 def confirm_booking_and_payment():
     # Select payment method and click 'Pay'
     confirm_payment_button = WebDriverWait(driver, 20).until(
@@ -98,17 +98,21 @@ def confirm_booking_and_payment():
     pay_now_button = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, "//*[text()='Pay now']"))
     )
-    pay_now_button.click()
-    sleep(20)
+    if prod_run:
+        pay_now_button.click()
+        sleep(20)
+    else:
+        print('::::: !!!TEST RUN!!!')
 
     if timeslot_chosen_1900:
-        print('Booked successfully for 19:00-21:00')
+        print('::::: Booked successfully for 19:00-21:00')
     elif timeslot_chosen_1800:
-        print('Booked successfully for 18:00-20:00')
+        print('::::: Booked successfully for 18:00-20:00')
     else:
-        print('Booked successfully for 20:00-22:00')
+        print('::::: Booked successfully for 20:00-22:00')
 
 is_headless = True
+prod_run = True
 eversports_weburl = "https://www.eversports.ch/widget/w/9ckd8j"
 login_email = "mbreckner@yahoo.de"
 login_password = "HdudYj2WvHhyu8ZHmb"
